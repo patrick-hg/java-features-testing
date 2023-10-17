@@ -22,7 +22,7 @@ public class TryCatchFinally {
             print("in catch block");
             return 0;
         } finally {
-            print("in finally block");
+            print("will execute finally block anyway");
         }
         return 1;
     }
@@ -34,10 +34,10 @@ public class TryCatchFinally {
             int i = 0 / 0;
 
         } catch (Exception e) {
-            print("in catch block");
+            print("in catch block and will propagate exception");
             throw e;
         } finally {
-            print("in finally block");
+            print("will execute finally block anyway");
         }
     }
 
