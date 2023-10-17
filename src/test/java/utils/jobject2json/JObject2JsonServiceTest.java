@@ -1,7 +1,8 @@
-package utils.jobject2json;
+package java.utils.jobject2json;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import utils.jobject2json.JObject2JsonService;
 
 class JObject2JsonServiceTest {
 
