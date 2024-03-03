@@ -32,11 +32,8 @@ public class SwitchCaseExpression {
 
     private String checkObject(Object obj) {
         return switch (obj) {
-
-            case Human h && ("male".equals(h.sex)) ->
-                    "It's a guy named %s, he is %d years old and working as %s".formatted(h.name, h.age, h.profession);
-            case Human h && ("female".equals(h.sex)) ->
-                    "It's a girl named %s, she is %d years old and working as %s".formatted(h.name, h.age, h.profession);
+            case Human h -> "It's a %s named %s, he is %d years old and working as %s"
+                    .formatted("female".equals(h.sex) ? "girl": "guy", h.name, h.age, h.profession);
             case Triangle t ->
                     "It's a %s Triangle".formatted(t.getColor());
             case commons.shapes.Square sq ->
