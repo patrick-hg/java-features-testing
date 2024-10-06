@@ -1,17 +1,26 @@
 package concurrency;
 
 
+
 public class SimpleThread extends Thread {
 
-    private int countTo = (int)(Math.random() * 20);
+    private final int countTo;
+    private final int threadNumber;
+    private static int nbOfOccurence;
+
+    public SimpleThread(int max) {
+        countTo = (int)(Math.random() * max);
+        nbOfOccurence++;
+        this.threadNumber = nbOfOccurence;
+    }
 
     @Override
     public void run() {
-        log("[%s] started and will count to '%d'".formatted(Thread.currentThread().getName(), countTo));
+        log("started and will count to '%d'".formatted(countTo));
 
         int count = 0;
         while(count < countTo) {
-            log("[%s] %d / %d {%s}".formatted(Thread.currentThread().getName(), count, countTo, this.toString()));
+            log("%d / %d {%s}".formatted(count, countTo, this.toString()));
 
             count++;
             try {
@@ -20,7 +29,7 @@ public class SimpleThread extends Thread {
                 throw new RuntimeException(e);
             }
         }
-        log("[%s] %d / %d ending.".formatted(this.getName(), count, countTo));
+        log("%d / %d ending.".formatted(count, countTo));
     }
 
     @Override
@@ -32,7 +41,11 @@ public class SimpleThread extends Thread {
                 "}").formatted(this.getName(), this.getState(), this.getPriority());
     }
 
+    public int getThreadNumber() {
+        return threadNumber;
+    }
+
     private void log(String msg) {
-        System.out.println(msg);
+        System.out.printf("[%s] %s%n", getName(), msg);
     }
 }
