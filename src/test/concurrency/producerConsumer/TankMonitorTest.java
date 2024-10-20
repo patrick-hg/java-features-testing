@@ -1,7 +1,11 @@
-package producerConsumer;
+package concurrency.producerConsumer;
 
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
+import producerConsumer.FuelPump;
+import producerConsumer.FuelTank;
+import producerConsumer.FuelTruck;
+import producerConsumer.TankMonitor;
 
 import java.util.concurrent.ThreadPoolExecutor;
 

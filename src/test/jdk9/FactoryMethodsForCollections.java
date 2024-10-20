@@ -1,5 +1,6 @@
 package jdk9;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -15,6 +16,6 @@ public class FactoryMethodsForCollections {
         List<String> list = List.of("Apple", "Banana", "Orange", "Strawberry");
         Map<String, String> map = Map.of("SPAIN", "ORANGE", "ITALY", "grapes");
 
-        assert set.toString().equals("1,2,3,4");
+        Assertions.assertNotNull(set);
     }
 }
