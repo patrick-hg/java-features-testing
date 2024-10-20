@@ -29,8 +29,8 @@
         </plugins>
     </build>
     <modules>
-        <module>src/main/java/jdk9/moduleStudent</module>
-        <module>src/main/java/jdk9/moduleUniversity</module>
+        <module>src/main/java/java9/moduleStudent</module>
+        <module>src/main/java/java9/moduleUniversity</module>
     </modules>
     <dependencies>
         <dependency>

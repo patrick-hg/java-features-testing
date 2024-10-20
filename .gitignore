@@ -3,6 +3,10 @@
 /target/
 !.mvn/wrapper/maven-wrapper.jar
 
+## module target folders
+/src/main/java/java9/moduleStudent/target
+/src/main/java/java9/moduleUniversity/target
+
 ### STS ###
 .apt_generated
 .classpath
