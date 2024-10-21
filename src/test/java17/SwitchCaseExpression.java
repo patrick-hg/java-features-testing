@@ -1,4 +1,4 @@
-package jdk17;
+package java17;
 
 import commons.shapes.Circle;
 import commons.shapes.Square;
@@ -12,7 +12,6 @@ import java.util.Arrays;
 public class SwitchCaseExpression {
 
     record Human(String name, int age, String sex, String profession) {}
-
 
     @Test
     void should_print_message_depending_on_object() {
