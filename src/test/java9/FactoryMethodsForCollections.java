@@ -1,4 +1,4 @@
-package jdk9;
+package java9;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

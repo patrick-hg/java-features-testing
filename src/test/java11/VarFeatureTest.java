@@ -1,4 +1,4 @@
-package jdk11;
+package java11;
 
 
 import org.junit.jupiter.api.DisplayName;

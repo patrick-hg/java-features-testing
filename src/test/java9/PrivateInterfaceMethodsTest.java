@@ -1,4 +1,4 @@
-package jdk9;
+package java9;
 
 import commons.RestorantEnums.Beverage;
 import commons.RestorantEnums.Meal;

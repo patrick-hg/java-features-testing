@@ -1,4 +1,4 @@
-package jdk17;
+package java17;
 
 import commons.shapes.Circle;
 import commons.shapes.Square;

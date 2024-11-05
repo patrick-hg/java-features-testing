@@ -1,4 +1,4 @@
-package jdk8.concurrency;
+package java8.concurrency;
 
 
 import lombok.SneakyThrows;

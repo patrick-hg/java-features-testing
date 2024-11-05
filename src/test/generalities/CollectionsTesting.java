@@ -1,15 +1,14 @@
 package generalities;
 
 import commons.WeekDay;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.*;
 
+import static commons.WeekDay.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static utils.CollectionUtils.makePrintableString;
@@ -44,7 +43,7 @@ public class CollectionsTesting {
         void test_Link () {
 
             Queue<WeekDay> priorityQueueWithoutComparator = new PriorityQueue<>();
-            priorityQueueWithoutComparator.addAll(List.of(WeekDay.FRIDAY, WeekDay.TUESDAY, WeekDay.MONDAY, WeekDay.THURSDAY, WeekDay.WEDNESDAY));
+            priorityQueueWithoutComparator.addAll(List.of(WeekDay.FRIDAY, WeekDay.TUESDAY, MONDAY, WeekDay.THURSDAY, WeekDay.WEDNESDAY));
 
             Queue<WeekDay> priorityQueueWithComparator = new PriorityQueue<>(WeekDay.comparator);
             priorityQueueWithComparator.addAll(List.of(WeekDay.getWeekDays()));
@@ -56,6 +55,20 @@ public class CollectionsTesting {
 
             assertNotEquals("[MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY]", queueStringWithoutComparator);
             assertEquals("[MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY]", queueStringWithComparator);
+        }
+
+        @Test
+        @DisplayName("Test Deque")
+        void test_deque() {
+            Deque<WeekDay> deque = new ArrayDeque<>();
+            deque.add(TUESDAY);
+            deque.add(WEDNESDAY);
+            deque.add(THURSDAY);
+
+            deque.addFirst(MONDAY);
+            deque.addLast(FRIDAY);
+
+            assertEquals("[MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY]", deque.toString());
         }
     }
 }
