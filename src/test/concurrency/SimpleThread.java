@@ -1,16 +1,14 @@
 package concurrency;
 
-
-
 public class SimpleThread extends Thread {
 
     private final int countTo;
     private final int threadNumber;
     private static int nbOfOccurence;
 
-    public SimpleThread(int max) {
-        countTo = (int)(Math.random() * max);
+    public SimpleThread(int countTo) {
         nbOfOccurence++;
+        this.countTo = countTo;
         this.threadNumber = nbOfOccurence;
     }
 

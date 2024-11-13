@@ -9,11 +9,11 @@ import java.util.Set;
 @DisplayName("Records testing")
 public class Records {
 
-    public record Employee (String firstname, int age, Profession profession, Integer salary)
+    public record Employee (String name, int age, Profession profession, Integer salary)
             implements Introduce {
 
-        public Employee(String firstname, int age, Profession profession, Integer salary) {
-            this.firstname = firstname;
+        public Employee(String name, int age, Profession profession, Integer salary) {
+            this.name = name;
             this.age = age();
             this.profession = profession;
             this.salary = salary;
@@ -23,7 +23,7 @@ public class Records {
 
         @Override
         public void salute() {
-            System.out.println("Hello! my name is " + firstname + " and i am a " + profession.getTitle());
+            System.out.println("Hello! my name is " + name + " and i am a " + profession.getTitle());
         }
     }
 
