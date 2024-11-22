@@ -1,4 +1,4 @@
-package producerConsumer;
+package generalities.concurrency.producerConsumer;
 
 public class FuelTruck extends Thread {
 

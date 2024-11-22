@@ -1,50 +1,53 @@
-package generalities.concurrency;
+package generalities.concurrency.factorialThreadExercise;
 
+import java.io.IOException;
 import java.math.BigInteger;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class FactorialThreadTest {
+public class FactorialThread_1_OneComputationOneThread {
 
     /**
      * First: Generate N random numbers
      * Then: Calculate Factorial value for each
+     * **Simplest: one computation is done by one thread
      * @param args
      */
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, IOException {
+        System.out.println("Concurrency Exercise: Factorial Thread - 1 - One Computation One Thread");
 
-        FactorialThreadTest factorialThreadTest = new FactorialThreadTest();
-        factorialThreadTest.execute(10, 1000);
+        // Get input
+        Scanner scanner = new Scanner(System.in);
+        System.out.printf("[INPUT] nbItems,maxBound (ex: 10,100): ");
+        String[] input = scanner.next().split(",");
+        int nbItems = Integer.valueOf(input[0]);
+        int maxBound = Integer.valueOf(input[1]);
+
+        FactorialThread_1_OneComputationOneThread factorialThreadTest = new FactorialThread_1_OneComputationOneThread();
+        factorialThreadTest.execute(nbItems, maxBound);
     }
-
 
     public void execute(int nbItems, int maxBound) throws InterruptedException {
 
         // generate the input numbers randomly with a thread
         RandomNumbersThread randomNumbersThread = new RandomNumbersThread(nbItems, maxBound);
         randomNumbersThread.start();
-
-        // wait while still generating input numbers
-//        do { Thread.sleep(1000); } while (!randomNumbersThread.jobCompleted);
         randomNumbersThread.join();     // wait (indefinitely) for thread to finish
+        Set<Integer> numbers = randomNumbersThread.getRandomNumbers();  // get the values from the thread
 
-        Set<Integer> numbers = randomNumbersThread.getRandomNumbers();
         System.out.println("Let's calculate the factorial of the following numbers: " + numbers);
 
         List<FactorialThread> factorialThreads = new ArrayList<>(nbItems);
         numbers.forEach(number -> factorialThreads.add(new FactorialThread(number)));
         factorialThreads.forEach(FactorialThread::start);
-//        for (FactorialThread thread : factorialThreads) {
-//            thread.join(2000);
-//        }
 
         // main thread get the values as soon as calculation is terminated and print value
         AtomicInteger nbItemsCalculated = new AtomicInteger();
         do {
             Thread.sleep(1000);
             factorialThreads.forEach(factorialThread -> {
-                if (factorialThread.isHasTerminated()) {
-                    if (!factorialThread.isReturnValueRead()) {
+                if (factorialThread.hasTerminated()) {
+                    if (!factorialThread.hasResultBeenPassed()) {
                         nbItemsCalculated.getAndIncrement();
                     }
                     System.out.printf("[%s-%d] Factorial of %d is %s\n",
@@ -109,8 +112,8 @@ public class FactorialThreadTest {
         private Integer inputNumber;
         private BigInteger outputNumber;
 
-        private boolean hasTerminated;
-        private boolean returnValueRead;
+        private boolean hasTerminated;  // if calculation job finished and result is ready
+        private boolean resultPassed;   // if factorial result have been read from outside
 
         public FactorialThread(Integer number) {
             this.setName(this.getClass().getSimpleName());
@@ -138,16 +141,17 @@ public class FactorialThreadTest {
         }
 
         public BigInteger getOutputNumber() {
-            this.returnValueRead = true;
+            this.resultPassed = true;
             return outputNumber;
         }
 
-        public boolean isReturnValueRead() {
-            return returnValueRead;
-        }
-
-        public boolean isHasTerminated() {
+        public boolean hasTerminated() {
             return hasTerminated;
         }
+
+        public boolean hasResultBeenPassed() {
+            return resultPassed;
+        }
+
     }
 }
