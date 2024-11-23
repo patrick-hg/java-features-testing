@@ -1,12 +1,8 @@
 package generalities;
 
-import lombok.extern.java.Log;
-
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
-@Log
 public class PatHashmap<K,V> {
 
     private List<Node> buckets;
@@ -89,7 +85,7 @@ public class PatHashmap<K,V> {
         float load = (float) size() / nbOfBuckets();
 
         if (load > bucketLoadRatio) {
-            log.info("[checkLoadAndAddBuckets] load '%f' exceed limit '%d' -> add new bucket".formatted(load, bucketLoadRatio));
+            System.out.println("[checkLoadAndAddBuckets] load '%f' exceed limit '%d' -> add new bucket".formatted(load, bucketLoadRatio));
             this.buckets.add(new Node());
         }
     }
