@@ -13,6 +13,11 @@ import java.util.concurrent.Semaphore;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
+/**
+ * In computer science, a semaphore is a variable or abstract data type used to control access to a common resource
+ * by multiple threads and avoid critical section problems in a concurrent system such as a multitasking operating system.
+ * Semaphores are a type of synchronization primitive.
+ */
 public class SemaphoreExampleParkingLot {
 
     public static void main(String[] args) {

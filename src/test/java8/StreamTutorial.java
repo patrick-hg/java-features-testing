@@ -14,7 +14,6 @@ public class StreamTutorial {
         Stream.of("Paris", "Lyon", "Marseille", "Lille", "Nice", "Bordeaux", "Bayonne", "Nantes", "Strasbourg", "Versailles")
                 .sorted()
                 .forEach(System.out::println);
-
     }
 
 }

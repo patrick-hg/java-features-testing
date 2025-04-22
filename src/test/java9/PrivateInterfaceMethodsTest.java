@@ -30,24 +30,24 @@ public class PrivateInterfaceMethodsTest {
         MyInterface myInterface = new MyInterface() {
             @Override
             public void eat(Meal meal) {
-                System.out.println("eating a " + meal);
+                System.out.println("Eating a " + meal);
                 try {
                     Thread.sleep(Double.valueOf(Math.random() * 8).longValue());
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println("finished eatin " + meal);
+                System.out.println("Done eating " + meal);
             }
 
             @Override
             public void drink(Beverage beverage) {
-                System.out.println("drinking a " + beverage);
+                System.out.println("Drinking a " + beverage);
                 try {
                     Thread.sleep(Double.valueOf(Math.random() * 4).longValue());
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println("Finished drinking " + beverage);
+                System.out.println("Done drinking " + beverage);
             }
         };
 

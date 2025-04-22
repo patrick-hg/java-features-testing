@@ -4,8 +4,15 @@ public class SharedClass implements IShared {
     private int x = 0;
     private int y = 0;
     protected int countDataRace = 0;
+
+    private final int MAX;
+
+    public SharedClass(int max) {
+        this.MAX = max;
+    }
+
     private final Thread checkForDataRaceThread = new Thread(() -> {
-        for (int i = 0; i < Integer.MAX_VALUE; i++) {
+        for (int i = 0; i < getMax(); i++) {
             checkForDataRace();
         }
     });
@@ -38,5 +45,10 @@ public class SharedClass implements IShared {
     @Override
     public int getCountDataRace() {
         return this.countDataRace;
+    }
+
+    @Override
+    public int getMax() {
+        return MAX;
     }
 }

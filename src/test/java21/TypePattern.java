@@ -5,49 +5,47 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+
 public class TypePattern {
 
-    @Nested
-    class OldFashion {
 
-        @Test
-        void condition_on_instance () {
-            // return object's length depending on object Class
-            Object objectText = "Some text...";
-            Object objectNumber = 123;
+    @Test
+    void should_return_length () {
+        // return object's length depending on object Class
+        Object objectText = "Some text...";
+        Object objectNumber = 123;
 
-            assertEquals(12, getLengthOldFashion(objectText));
-            assertEquals(3, getLengthOldFashion(objectNumber));
-            assertEquals(12, getLengthUsingTypePattern(objectText));
-            assertEquals(3, getLengthUsingTypePattern(objectNumber));
-        }
-
-        private int getLengthOldFashion(Object object) {
-            if (object instanceof String) {
-                String text = (String) object;
-                return text.length();
-
-            } else if (object instanceof Integer) {
-                Integer number = (Integer) object;
-                return number.toString().length();
-            }
-            else {
-                throw new IllegalArgumentException();
-            }
-        }
-
-        private int getLengthUsingTypePattern(Object object) {
-            if (object instanceof String text) {
-                return text.length();
-
-            } else if (object instanceof Integer number) {
-                return number.toString().length();
-            }
-            else {
-                throw new IllegalArgumentException();
-            }
-
-        }
+        assertEquals(12, getLength(objectText));
+        assertEquals(3, getLength(objectNumber));
     }
 
+    @Test
+    void should_return_length_using_type_pattern () {
+        // return object's length depending on object Class
+        Object objectText = "Some text...";
+        Object objectNumber = 123;
+
+        assertEquals(12, getLengthPatternVariable(objectText));
+        assertEquals(3, getLengthPatternVariable(objectNumber));
+    }
+
+    private int getLength(Object object) {
+        if (object instanceof String) {
+            String text = (String) object;
+            return text.length();
+        } else if (object instanceof Integer) {
+            Integer number = (Integer) object;
+            return number.toString().length();
+        }
+        throw new IllegalArgumentException();
+    }
+
+    private int getLengthPatternVariable(Object object) {
+        if (object instanceof String text) {
+            return text.length();
+        } else if (object instanceof Integer number) {
+            return number.toString().length();
+        }
+        throw new IllegalArgumentException();
+    }
 }

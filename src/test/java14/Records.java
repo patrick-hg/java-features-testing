@@ -9,15 +9,24 @@ import java.util.Set;
 @DisplayName("Records testing")
 public class Records {
 
-    public record Employee (String name, int age, Profession profession, Integer salary)
-            implements Introduce {
+    interface Introduce {
+        default void salute() {
+            System.out.println("Hello!");
+        };
+    }
+
+    public record Employee (
+            String name,
+            int age,
+            Profession profession,
+            Integer salary
+    ) implements Introduce {
 
         public Employee(String name, int age, Profession profession, Integer salary) {
             this.name = name;
-            this.age = age();
+            this.age = age;
             this.profession = profession;
             this.salary = salary;
-
             salute();
         }
 
@@ -25,12 +34,6 @@ public class Records {
         public void salute() {
             System.out.println("Hello! my name is " + name + " and i am a " + profession.getTitle());
         }
-    }
-
-    interface Introduce {
-        default void salute() {
-            System.out.println("Hello!");
-        };
     }
 
     @Test

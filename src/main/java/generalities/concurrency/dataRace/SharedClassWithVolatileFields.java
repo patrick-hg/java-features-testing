@@ -4,10 +4,16 @@ package generalities.concurrency.dataRace;
 public class SharedClassWithVolatileFields implements IShared {
     private volatile int x = 0;
     private volatile int y = 0;
-
+    private final int MAX;
     private int countDataRace = 0;
+
+    public SharedClassWithVolatileFields(int max) {
+        this.MAX = max;
+    }
+
+
     private final Thread checkForDataRaceThread = new Thread(() -> {
-        for (int i = 0; i < Integer.MAX_VALUE; i++) {
+        for (int i = 0; i < getMax(); i++) {
             checkForDataRace();
         }
     });
@@ -35,5 +41,10 @@ public class SharedClassWithVolatileFields implements IShared {
     @Override
     public int getCountDataRace() {
         return this.countDataRace;
+    }
+
+    @Override
+    public int getMax() {
+        return MAX;
     }
 }

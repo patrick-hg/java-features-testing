@@ -1,4 +1,4 @@
-package generalities.concurrency.factorialThreadExercise;
+package _0_generalities.concurrency.factorialThreadExercise;
 
 import java.math.BigInteger;
 import java.util.*;

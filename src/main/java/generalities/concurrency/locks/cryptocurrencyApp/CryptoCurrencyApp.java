@@ -1,4 +1,4 @@
-package generalities.concurrency.locks;
+package generalities.concurrency.locks.cryptocurrencyApp;
 
 import javafx.animation.AnimationTimer;
 import javafx.animation.FillTransition;
@@ -29,7 +29,6 @@ public class CryptoCurrencyApp extends Application {
         // Data
         PricesContainer pricesContainer = new PricesContainer();
         PriceUpdater priceUpdater = new PriceUpdater(pricesContainer);
-
 
         // set up the UI
         int width = 300;

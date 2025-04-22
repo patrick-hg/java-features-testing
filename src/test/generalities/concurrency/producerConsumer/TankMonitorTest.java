@@ -1,11 +1,7 @@
-package concurrency.producerConsumer;
+package generalities.concurrency.producerConsumer;
 
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
-import generalities.concurrency.producerConsumer.FuelPump;
-import generalities.concurrency.producerConsumer.FuelTank;
-import generalities.concurrency.producerConsumer.FuelTruck;
-import generalities.concurrency.producerConsumer.TankMonitor;
 
 public class TankMonitorTest {
 

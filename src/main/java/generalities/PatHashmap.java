@@ -9,8 +9,8 @@ public class PatHashmap<K,V> {
     private int size;
     private int bucketLoadRatio;
 
-    public PatHashmap() {
-        this.bucketLoadRatio = 5;
+    public PatHashmap(int bucketLoadRatio) {
+        this.bucketLoadRatio = bucketLoadRatio;
         buckets = new ArrayList<>();
         buckets.add(null);
     }

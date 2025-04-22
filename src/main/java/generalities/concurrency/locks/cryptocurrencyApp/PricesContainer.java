@@ -1,13 +1,8 @@
-package generalities.concurrency.locks;
-
-//import lombok.Getter;
-//import lombok.Setter;
+package generalities.concurrency.locks.cryptocurrencyApp;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-//@Getter
-//@Setter
 public class PricesContainer {
 
     private Lock lock = new ReentrantLock();

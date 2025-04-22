@@ -7,7 +7,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 class PatHashmapTest {
@@ -17,11 +17,10 @@ class PatHashmapTest {
     void should_create_a_hashmap_of_employees_adding_new_elements_and_replace_existing () {
 
         // given
-        PatHashmap hashmap = new PatHashmap();
+        PatHashmap hashmap = new PatHashmap(5);
         hashmap.put("Martin", "Developer");
         hashmap.put("Julian", "Web Designer");
         hashmap.put("Andre", "DevOps");
-
         hashmap.put("Julian", "UX");
 
         // Then
@@ -46,7 +45,9 @@ class PatHashmapTest {
     @Test
     void should_increment_number_of_buckets_when_adding_items() {
 
-        PatHashmap<UUID, String> hashmap = new PatHashmap();
+        PatHashmap<UUID, String> hashmap = new PatHashmap(5);
+        assertEquals(0, hashmap.size());
+        assertEquals(1, hashmap.nbOfBuckets());
         for (int i=0; i<15; i++) {
             UUID randomUuid = UUID.randomUUID();
             hashmap.put(randomUuid, randomUuid.toString());

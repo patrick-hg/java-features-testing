@@ -5,4 +5,5 @@ public interface IShared {
     void startCheckForDataRace();
     void stopCheckForDataRace();
     int getCountDataRace();
+    int getMax();
 }

@@ -1,4 +1,4 @@
-package generalities.concurrency.locks;
+package generalities.concurrency.locks.cryptocurrencyApp;
 
 import java.util.Random;
 

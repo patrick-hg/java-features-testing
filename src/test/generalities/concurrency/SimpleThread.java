@@ -1,4 +1,4 @@
-package concurrency;
+package generalities.concurrency;
 
 public class SimpleThread extends Thread {
 
