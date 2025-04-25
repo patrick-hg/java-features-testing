@@ -17,14 +17,22 @@ class PatHashmapTest {
     void should_create_a_hashmap_of_employees_adding_new_elements_and_replace_existing () {
 
         // given
-        PatHashmap hashmap = new PatHashmap(5);
+        PatHashmap hashmap = new PatHashmap(3);
         hashmap.put("Martin", "Developer");
         hashmap.put("Julian", "Web Designer");
         hashmap.put("Andre", "DevOps");
-        hashmap.put("Julian", "UX");
+        hashmap.put("Juan", "UX");
+        hashmap.put("Alex", "Front");
+        hashmap.put("Igor", "Sound Engineer");
+
 
         // Then
-        assertEquals("{Martin:Developer},{Julian:UX},{Andre:DevOps}", hashmap.toString());
+        System.out.println(hashmap);
+        String expected = "HASHMAP: {\n" +
+                "  bucket:0 {Martin: Developer}, {Julian: Web Designer}, {Andre: DevOps}, {Juan: UX}, {Alex: Front}\n" +
+                "  bucket:1 {Igor: Sound Engineer}\n" +
+                "} #[size: 6, nbOfBuckets: 2]";
+        assertEquals(expected, hashmap.toString());
     }
 
     @ParameterizedTest
@@ -51,6 +59,7 @@ class PatHashmapTest {
         for (int i=0; i<15; i++) {
             UUID randomUuid = UUID.randomUUID();
             hashmap.put(randomUuid, randomUuid.toString());
+            System.out.println(hashmap);
         }
 
         assertEquals(15, hashmap.size());

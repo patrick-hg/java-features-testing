@@ -2,10 +2,17 @@ package generalities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
+
+/**
+ * A HashMap is a list of Buckets and in each bucket there is a list of key/value object where data is stored.
+ * @param <K>
+ * @param <V>
+ */
 public class PatHashmap<K,V> {
 
-    private List<Node> buckets;
+    private List<Bucket> buckets;
     private int size;
     private int bucketLoadRatio;
 
@@ -23,6 +30,14 @@ public class PatHashmap<K,V> {
         return size;
     }
 
+    private class Bucket {
+        final private Node firstNode = new Node();
+
+        public Node getFirstNode() {
+            return firstNode;
+        }
+    }
+
     private class Node {
         private int hash;
         private K key;
@@ -31,6 +46,10 @@ public class PatHashmap<K,V> {
 
         boolean hasNext() {
             return next != null;
+        }
+
+        public Node getNext() {
+            return next;
         }
 
         @Override
@@ -43,22 +62,40 @@ public class PatHashmap<K,V> {
         }
     }
 
+    /**
+     * When we insert new 'key/value' data:
+     * 1- calculate the key's hashcode using a hashing function.
+     * 2- if bucket load would be exceeded, then add a new bucket.
+     * 3- reduce hashcode into an int -> this value will be the bucket where data will be stored.
+     * 4- store the new data into the bucket
+     * @param key
+     * @param value
+     */
     public void put(K key, V value) {
         int hashCode = hashKey(key);
         checkLoadAndAddBuckets();
         int reduced = reduceHashCode(hashCode, buckets.size());
 
-        Node bucket = getBucket(reduced);
-        putInBucket(bucket, hashCode, key, value);
+        Bucket bucket = getBucket(reduced);
+        putInBucket(bucket.getFirstNode(), hashCode, key, value);
     }
 
-    public Node getBucket(int index) {
+    public Bucket getBucket(int index) {
         if (buckets.get(index) == null) {
-            buckets.set(index, new Node());
+            buckets.set(index, new Bucket());
         }
         return buckets.get(index);
     }
 
+    /**
+     * Insert a key/value element into a specific bucket
+     * if the bucket is still empty then initialise first node
+     * then if key exist in the bucket
+     * @param node
+     * @param hashCode
+     * @param key
+     * @param value
+     */
     private void putInBucket(Node node, int hashCode, K key, V value) {
         if (node.key == null) {
             node.hash = hashCode;
@@ -70,7 +107,7 @@ public class PatHashmap<K,V> {
         if (node.hash == hashCode) {
             node.value = value;
         } else if (node.hasNext()) {
-            putInBucket(node.next, hashCode, key, value);
+            putInBucket(node.getNext(), hashCode, key, value);
         } else {
             Node newNode = new Node();
             newNode.hash = hashCode;
@@ -85,8 +122,8 @@ public class PatHashmap<K,V> {
         float load = (float) size() / nbOfBuckets();
 
         if (load > bucketLoadRatio) {
-            System.out.println("[checkLoadAndAddBuckets] load '%f' exceed limit '%d' -> add new bucket".formatted(load, bucketLoadRatio));
-            this.buckets.add(new Node());
+            System.out.println("[checkLoadAndAddBuckets] load '%f' exceed bucket load limit '%d' -> add new bucket".formatted(load, bucketLoadRatio));
+            this.buckets.add(new Bucket());
         }
     }
 
@@ -100,9 +137,18 @@ public class PatHashmap<K,V> {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        buckets.stream().forEach(node -> sb.append(node.toString()));
-        sb.deleteCharAt(0);
+        StringBuilder sb = new StringBuilder("HASHMAP: {\n");
+        AtomicInteger idx = new AtomicInteger();
+        buckets.forEach(bucket -> {
+            sb.append("  bucket:%d ".formatted(idx.get())).append(bucketToString(bucket.getFirstNode())).append("\n");
+            idx.getAndIncrement();
+        });
+//        sb.deleteCharAt(0);
+        sb.append("} #[size: %d, nbOfBuckets: %d]".formatted(this.size(), this.nbOfBuckets()));
         return sb.toString();
+    }
+
+    private String bucketToString(Node node) {
+        return "{%s: %s}".formatted(node.key, node.value) + (node.hasNext() ? ", " + bucketToString(node.next) : "");
     }
 }
